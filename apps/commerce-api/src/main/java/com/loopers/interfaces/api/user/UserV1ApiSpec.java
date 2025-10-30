@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestHeader;
 
 @Tag(name = "Example V1 API", description = "Loopers 예시 API 입니다.")
 public interface UserV1ApiSpec {
@@ -39,6 +40,15 @@ public interface UserV1ApiSpec {
             @PathVariable String userId
     );
 
-
-
+    @Operation(
+            summary = "포인트 조회",
+            description = "userId에 대한 현재 포인트를 조회합니다."
+    )
+    ApiResponse<Integer> getUserPoint (
+            @Schema(name = "userId",
+                    description = "조회할 예시의 ID",
+                    example = "ajchoi0928")
+            @PathVariable String userId,
+            @RequestHeader String xUserId
+            );
 }
