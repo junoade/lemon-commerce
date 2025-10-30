@@ -36,4 +36,13 @@ public class UserService {
                 .map(UserModel::getPoint)
                 .orElse(null);
     }
+
+    public Integer chargePoint(String userId, Integer point) {
+        UserModel user = userRepository.findByUserId(userId)
+                .orElseThrow(() -> new CoreException(ErrorType.NOT_FOUND, "이용자ID를 확인해주세요."));
+        user.updatePoint(point);
+        userRepository.save(user);
+
+        return user.getPoint();
+    }
 }

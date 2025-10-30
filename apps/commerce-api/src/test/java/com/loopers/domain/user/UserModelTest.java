@@ -224,6 +224,28 @@ class UserModelTest {
             assertThat(result.getErrorType()).isEqualTo(ErrorType.BAD_REQUEST);
         }
 
+        @DisplayName("0 이하의 정수로 포인트를 충전 시 실패한다")
+        @Test
+        void throwBadRequestException_whenPointIsNegative() {
+            // given
+            String userId = "ajchoi0928";
+            String userName = "junho";
+            String description = "loopers backend developer";
+            String email = "ajchoi0928@loopers.com";
+            String birthDate = "1997-09-28";
+            String gender = "M";
+            Integer point = 0;
+
+            // when
+            UserModel userModel = new UserModel(userId, userName, description, email, birthDate, gender, point);
+            CoreException result = assertThrows(CoreException.class, () -> {
+                userModel.updatePoint(-1);
+            });
+
+            // then
+            assertThat(result.getErrorType()).isEqualTo(ErrorType.BAD_REQUEST);
+        }
+
 
     }
 }
